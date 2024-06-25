@@ -1,0 +1,135 @@
+<?xml version="1.0" ?>
+<mujoco model="a1_description">
+    <asset>
+        <material name="black" rgba="0.0 0.0 0.0 1.0"/>
+        <material name="blue" rgba="0.0 0.0 0.8 1.0"/>
+        <material name="green" rgba="0.0 0.8 0.0 1.0"/>
+        <material name="grey" rgba="0.2 0.2 0.2 1.0"/>
+        <material name="silver" rgba="0.913725490196 0.913725490196 0.847058823529 1.0"/>
+        <material name="orange" rgba="0.12 0.15 0.2 1.0"/>
+        <material name="brown" rgba="0.870588235294 0.811764705882 0.764705882353 1.0"/>
+        <material name="red" rgba="0.8 0.0 0.0 1.0"/>
+        <material name="white" rgba="1.0 1.0 1.0 1.0"/>
+        <mesh name="trunk" file="../meshes/trunk.dae" scale="1 1 1"/>
+        <mesh name="hip" file="../meshes/hip.dae" scale="1 1 1"/>
+        <mesh name="thigh" file="../meshes/thigh_mirror.dae" scale="1 1 1"/>
+        <mesh name="calf" file="../meshes/calf.dae" scale="1 1 1"/>
+    </asset>
+    <worldbody>
+        <body name="base" pos="0 0 0">
+            <geom type="box" size="0.0005 0.0005 0.0005" rgba="1 0 0 1"/>
+            <joint name="floating_base" type="free"/>
+            <body name="trunk" pos="0 0 0">
+                <geom type="mesh" mesh="trunk" material="orange"/>
+                <geom type="box" size="0.1335 0.097 0.057" pos="0 0 0" rgba="0 1 0 0.5"/>
+                <inertial pos="0.012731 0.002186 0.000515" mass="4.713" diaginertia="0.01683993 0.056579028 0.064713601"/>
+                <joint name="imu_joint" type="free" pos="0 0 0"/>
+                <body name="imu_link" pos="0 0 0">
+                    <geom type="box" size="0.0005 0.0005 0.0005" material="red"/>
+                    <inertial mass="0.001" diaginertia="0.0001 0.0001 0.0001"/>
+                </body>
+                <!-- Front Right Leg (FR) -->
+                <body name="FR_hip" pos="0.183 -0.047 0">
+                    <joint name="FR_hip_joint" type="hinge" axis="1 0 0" pos="0 0 0" range="-0.802851455917 0.802851455917" limited="true"/>
+                    <geom type="mesh" mesh="hip" material="orange"/>
+                    <inertial pos="-0.003311 -0.000635 3.1e-05" mass="0.696" diaginertia="0.000469246 0.00080749 0.000552929"/>
+                    <body name="FR_thigh" pos="0 -0.08505 0">
+                        <joint name="FR_thigh_joint" type="hinge" axis="0 1 0" pos="0 0 0" range="-1.0471975512 4.18879020479" limited="true"/>
+                        <geom type="mesh" mesh="thigh" material="orange"/>
+                        <geom type="box" size="0.1 0.01225 0.017" pos="0 0 -0.1" rgba="0 0 1 0.5"/>
+                        <inertial pos="-0.003237 0.022327 -0.027326" mass="1.013" diaginertia="0.005529065 0.005139339 0.001367788"/>
+                        <body name="FR_calf" pos="0 0 -0.2">
+                            <joint name="FR_calf_joint" type="hinge" axis="0 1 0" pos="0 0 0" range="-2.69653369433 -0.916297857297" limited="true"/>
+                            <geom type="mesh" mesh="calf" material="orange"/>
+                            <geom type="box" size="0.1 0.008 0.008" pos="0 0 -0.1" rgba="0 0 1 0.5"/>
+                            <inertial pos="0.006435 0.0 -0.107388" mass="0.166" diaginertia="0.002997972 0.003014022 3.2426e-05"/>
+                            <body name="FR_foot" pos="0 0 -0.2">
+                                <geom type="sphere" size="0.01" material="orange"/>
+                                <geom type="sphere" size="0.02" pos="0 0 0" rgba="0 0 1 0.5"/>
+                                <inertial mass="0.06" diaginertia="9.6e-06 9.6e-06 9.6e-06"/>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+                <!-- Front Left Leg (FL) -->
+                <body name="FL_hip" pos="0.183 0.047 0">
+                    <joint name="FL_hip_joint" type="hinge" axis="1 0 0" pos="0 0 0" range="-0.802851455917 0.802851455917" limited="true"/>
+                    <geom type="mesh" mesh="hip" material="orange"/>
+                    <inertial pos="-0.003311 0.000635 3.1e-05" mass="0.696" diaginertia="0.000469246 0.00080749 0.000552929"/>
+                    <body name="FL_thigh" pos="0 0.08505 0">
+                        <joint name="FL_thigh_joint" type="hinge" axis="0 1 0" pos="0 0 0" range="-1.0471975512 4.18879020479" limited="true"/>
+                        <geom type="mesh" mesh="thigh" material="orange"/>
+                        <geom type="box" size="0.1 0.01225 0.017" pos="0 0 -0.1" rgba="0 0 1 0.5"/>
+                        <inertial pos="-0.003237 -0.022327 -0.027326" mass="1.013" diaginertia="0.005529065 0.005139339 0.001367788"/>
+                        <body name="FL_calf" pos="0 0 -0.2">
+                            <joint name="FL_calf_joint" type="hinge" axis="0 1 0" pos="0 0 0" range="-2.69653369433 -0.916297857297" limited="true"/>
+                            <geom type="mesh" mesh="calf" material="orange"/>
+                            <geom type="box" size="0.1 0.008 0.008" pos="0 0 -0.1" rgba="0 0 1 0.5"/>
+                            <inertial pos="0.006435 0.0 -0.107388" mass="0.166" diaginertia="0.002997972 0.003014022 3.2426e-05"/>
+                            <body name="FL_foot" pos="0 0 -0.2">
+                                <geom type="sphere" size="0.01" material="orange"/>
+                                <geom type="sphere" size="0.02" pos="0 0 0" rgba="0 0 1 0.5"/>
+                                <inertial mass="0.06" diaginertia="9.6e-06 9.6e-06 9.6e-06"/>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+                <!-- Rear Right Leg (RR) -->
+                <body name="RR_hip" pos="-0.183 -0.047 0">
+                    <joint name="RR_hip_joint" type="hinge" axis="1 0 0" pos="0 0 0" range="-0.802851455917 0.802851455917" limited="true"/>
+                    <geom type="mesh" mesh="hip" material="orange"/>
+                    <inertial pos="0.003311 -0.000635 3.1e-05" mass="0.696" diaginertia="0.000469246 0.00080749 0.000552929"/>
+                    <body name="RR_thigh" pos="0 -0.08505 0">
+                        <joint name="RR_thigh_joint" type="hinge" axis="0 1 0" pos="0 0 0" range="-1.0471975512 4.18879020479" limited="true"/>
+                        <geom type="mesh" mesh="thigh" material="orange"/>
+                        <geom type="box" size="0.1 0.01225 0.017" pos="0 0 -0.1" rgba="0 0 1 0.5"/>
+                        <inertial pos="-0.003237 0.022327 -0.027326" mass="1.013" diaginertia="0.005529065 0.005139339 0.001367788"/>
+                        <body name="RR_calf" pos="0 0 -0.2">
+                            <joint name="RR_calf_joint" type="hinge" axis="0 1 0" pos="0 0 0" range="-2.69653369433 -0.916297857297" limited="true"/>
+                            <geom type="mesh" mesh="calf" material="orange"/>
+                            <geom type="box" size="0.1 0.008 0.008" pos="0 0 -0.1" rgba="0 0 1 0.5"/>
+                            <inertial pos="0.006435 0.0 -0.107388" mass="0.166" diaginertia="0.002997972 0.003014022 3.2426e-05"/>
+                            <body name="RR_foot" pos="0 0 -0.2">
+                                <geom type="sphere" size="0.01" material="orange"/>
+                                <geom type="sphere" size="0.02" pos="0 0 0" rgba="0 0 1 0.5"/>
+                                <inertial mass="0.06" diaginertia="9.6e-06 9.6e-06 9.6e-06"/>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+                <!-- Rear Left Leg (RL) -->
+                <body name="RL_hip" pos="-0.183 0.047 0">
+                    <joint name="RL_hip_joint" type="hinge" axis="1 0 0" pos="0 0 0" range="-0.802851455917 0.802851455917" limited="true"/>
+                    <geom type="mesh" mesh="hip" material="orange"/>
+                    <inertial pos="0.003311 0.000635 3.1e-05" mass="0.696" diaginertia="0.000469246 0.00080749 0.000552929"/>
+                    <body name="RL_thigh" pos="0 0.08505 0">
+                        <joint name="RL_thigh_joint" type="hinge" axis="0 1 0" pos="0 0 0" range="-1.0471975512 4.18879020479" limited="true"/>
+                        <geom type="mesh" mesh="thigh" material="orange"/>
+                        <geom type="box" size="0.1 0.01225 0.017" pos="0 0 -0.1" rgba="0 0 1 0.5"/>
+                        <inertial pos="-0.003237 -0.022327 -0.027326" mass="1.013" diaginertia="0.005529065 0.005139339 0.001367788"/>
+                        <body name="RL_calf" pos="0 0 -0.2">
+                            <joint name="RL_calf_joint" type="hinge" axis="0 1 0" pos="0 0 0" range="-2.69653369433 -0.916297857297" limited="true"/>
+                            <geom type="mesh" mesh="calf" material="orange"/>
+                            <geom type="box" size="0.1 0.008 0.008" pos="0 0 -0.1" rgba="0 0 1 0.5"/>
+                            <inertial pos="0.006435 0.0 -0.107388" mass="0.166" diaginertia="0.002997972 0.003014022 3.2426e-05"/>
+                            <body name="RL_foot" pos="0 0 -0.2">
+                                <geom type="sphere" size="0.01" material="orange"/>
+                                <geom type="sphere" size="0.02" pos="0 0 0" rgba="0 0 1 0.5"/>
+                                <inertial mass="0.06" diaginertia="9.6e-06 9.6e-06 9.6e-06"/>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+                <!-- Back Box -->
+                <body name="back_box" pos="0 0 0.114">
+                    <geom type="box" size="0.15 0.11 0.005" pos="0 0 0" material="grey"/>
+                    <geom type="box" size="0.15 0.005 0.1" pos="0 0.105 0.1" material="grey"/>
+                    <geom type="box" size="0.15 0.005 0.1" pos="0 -0.105 0.1" material="grey"/>
+                    <geom type="box" size="0.005 0.11 0.1" pos="0.145 0 0.1" material="grey"/>
+                    <geom type="box" size="0.005 0.11 0.1" pos="-0.145 0 0.1" material="grey"/>
+                    <inertial pos="0 0 0" mass="0.5" diaginertia="0.01 0.01 0.01"/>
+                </body>
+            </body>
+        </body>
+    </worldbody>
+</mujoco>

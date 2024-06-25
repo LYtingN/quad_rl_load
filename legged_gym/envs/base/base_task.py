@@ -45,22 +45,23 @@ class BaseTask():
         self.sim_device = sim_device
         sim_device_type, self.sim_device_id = gymutil.parse_device_str(self.sim_device)
         self.headless = headless
-
-        # env device is GPU only if sim is on GPU and use_gpu_pipeline=True, otherwise returned tensors are copied to CPU by physX.
+        # self.device=torch.cuda.set_device(0)
+        #env device is GPU only if sim is on GPU and use_gpu_pipeline=True, otherwise returned tensors are copied to CPU by physX.
         if sim_device_type=='cuda' and sim_params.use_gpu_pipeline:
             self.device = self.sim_device
         else:
             self.device = 'cpu'
 
-        # graphics device for rendering, -1 for no rendering
+        #graphics device for rendering, -1 for no rendering
         self.graphics_device_id = self.sim_device_id
         if self.headless == True:
             self.graphics_device_id = -1
 
         self.num_envs = cfg.env.num_envs
-        self.num_obs = cfg.env.num_observations
+        self.num_obs = cfg.env.num_observations 
         self.num_privileged_obs = cfg.env.num_privileged_obs
         self.num_actions = cfg.env.num_actions
+        self.num_actors =cfg.env.num_actors #actors only this change
 
         # optimization flags for pytorch JIT
         torch._C._jit_set_profiling_mode(False)

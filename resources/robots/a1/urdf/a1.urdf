@@ -574,5 +574,93 @@
       <inertia ixx="9.6e-06" ixy="0.0" ixz="0.0" iyy="9.6e-06" iyz="0.0" izz="9.6e-06"/>
     </inertial>
   </link>
+  <!-- New Box Link Without a Lid -->
+  <link name="back_box">
+    <!-- Bottom Face -->
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.3 0.22 0.01"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.3 0.22 0.01"/>
+      </geometry>
+    </collision>
+    <!-- Front Face -->
+    <visual>
+      <origin xyz="0 0.105 0.075" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.3 0.01 0.15"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0.105 0.075" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.3 0.01 0.15"/>
+      </geometry>
+    </collision>
+    <!-- Back Face -->
+    <visual>
+      <origin xyz="0 -0.105 0.075" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.3 0.01 0.15"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.105 0.075" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.3 0.01 0.15"/>
+      </geometry>
+    </collision>
+    <!-- Left Face -->
+    <visual>
+      <origin xyz="0.145 0 0.075" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.22 0.15"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <origin xyz="0.145 0 0.075" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.22 0.15"/>
+      </geometry>
+    </collision>
+    <!-- Right Face -->
+    <visual>
+      <origin xyz="-0.145 0 0.075" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.22 0.15"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.145 0 0.075" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.22 0.15"/>
+      </geometry>
+    </collision>
+    <!-- Inertial properties -->
+    <inertial>
+      <mass value="0.5"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+    </inertial>
+  </link>
+  
+  <!-- Joint to attach the box to the trunk -->
+  <joint name="trunk_to_back_box" type="fixed">
+    <parent link="trunk"/>
+    <child link="back_box"/>
+    <origin xyz="0.00 0.0 0.114" rpy="0 0 0"/> <!-- Adjust the position as necessary -->
+  </joint>
+  
+  <!-- Existing definitions -->
 </robot>
 
